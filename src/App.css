@@ -28,6 +28,30 @@
   color: #61dafb;
 }
 
+table { 
+  border-collapse: collapse; 
+} 
+th { 
+  background-color:rgb(10, 218, 10); 
+  Color:white; 
+} 
+th, td { 
+  width:450px; 
+  text-align:center; 
+  border:0.5px solid black; 
+  padding:5px 
+
+} 
+
+button {
+  background-color: firebrick;
+  color: beige;
+}
+
+h1 { 
+  color:green; 
+} 
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

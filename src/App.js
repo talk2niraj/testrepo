@@ -30,6 +30,7 @@ function App() {
 
   async function createNote() {
     if (!formData.name || !formData.description) return;
+    formData.description = formData.description + ' [Created on ' + new Date() + ']';
     await API.graphql({ query: createNoteMutation, variables: { input: formData } });
     if (formData.image) {
       const image = await Storage.get(formData.image);
@@ -55,32 +56,56 @@ function App() {
 
   return (
     <div className="App">
-      <h1>My Notes App</h1>
-      <input
-        onChange={e => setFormData({ ...formData, 'name': e.target.value})}
-        placeholder="Note name"
-        value={formData.name}
-      />
-      <input
-        onChange={e => setFormData({ ...formData, 'description': e.target.value})}
-        placeholder="Note description"
-        value={formData.description}
-      />
-      <input
-        type="file"
-        onChange={onChange}
-      />
-      <button onClick={createNote}>Create Note</button>
+      <h1>thecodeschool Notes App</h1>
+      <table> 
+            <tr> 
+                <th>Note Name</th> 
+                <th>Note Description</th> 
+                <th>Upload photo</th>
+                <th></th> 
+            </tr> 
+        </table>
+        <table class = "gfg"> 
+            <tr> 
+                <td class = "geeks">
+                  <input
+                    onChange={e => setFormData({ ...formData, 'name': e.target.value})}
+                    placeholder="Note name"
+                    value={formData.name}
+                  />
+                </td> 
+                <td>
+                  <textarea
+                    type="textarea"
+                    onChange={e => setFormData({ ...formData, 'description': e.target.value})}
+                    placeholder="Note description"
+                    value={formData.description}
+                    rows={10}
+                    cols={50}
+                  />
+                </td> 
+                <td>
+                  <input
+                    type="file"
+                    onChange={onChange}
+                  />
+                </td> 
+                <td>
+                <button onClick={createNote}>Create Note</button>
+                </td> 
+            </tr> 
+        </table>  
+
       <div style={{marginBottom: 30}}>
       {
         notes.map(note => (
           <div key={note.id || note.name}>
             <h2>{note.name}</h2>
-            <p>{note.description}</p>
-            <button onClick={() => deleteNote(note)}>Delete note</button>
+            <div>{note.description}</div>
             {
               note.image && <img src={note.image} style={{width: 400}} />
-            }
+            } <br/>
+            <button onClick={() => deleteNote(note)}>Delete note</button>
           </div>
         ))
       }
